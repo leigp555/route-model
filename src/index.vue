@@ -7,11 +7,11 @@
       <a href="#4" @click="change">去四号组件</a>
     </div>
     <div>
-      <Component1 v-if="user==='Component1'"/>
-      <Component2 v-if="user==='Component2'"/>
-      <Component3 v-if="user==='Component3'"/>
-      <Component4 v-if="user==='Component4'"/>
-      <Component404 v-if="user==='Component404'"/>
+      <Component1 v-if="show==='Component1'"/>
+      <Component2 v-if="show==='Component2'"/>
+      <Component3 v-if="show==='Component3'"/>
+      <Component4 v-if="show==='Component4'"/>
+      <Component404 v-if="show==='Component404'"/>
     </div>
   </div>
 </template>
@@ -43,28 +43,28 @@ export default {
   },
   data() {
     return {
-      user: Component,
+      show: Component,
 
     }
   },
   methods: {
+    route() {
+      path = window.location.hash
+      console.log(path)
+      Component = RouteTable[path.toString()]
+      if (!Component) {
+        this.show = 'Component404'
+      } else {
+        this.show = RouteTable[path.toString()]
+      }
+    },
     change() {
-      window.addEventListener("hashchange", () => {
-        path = window.location.hash
-        console.log(path)
-        Component = RouteTable[path.toString()]
-        if (!Component) {
-          this.user = 'Component404'
-        } else {
-          this.user = RouteTable[path.toString()]
-        }
-      })
-
+      //先移除之前的事件监听再重新监听事件这样就不会把事件弄得越来越多
+      window.removeEventListener("hashchange", this.route,false)
+      window.addEventListener("hashchange", this.route,false)
     }
   }
 }
-
-
 </script>
 <style scoped>
 .link > a {

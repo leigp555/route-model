@@ -21,7 +21,7 @@ import component2 from "./components/component2";
 import component3 from "./components/component3";
 import component4 from "./components/component4";
 import component404 from "./components/404.vue"
-
+console.log("我是memory模式")
 const RouteTable = {
   "/1": "Component1",
   "/2": "Component2",

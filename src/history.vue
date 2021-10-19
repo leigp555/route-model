@@ -52,12 +52,14 @@ export default {
       // path=e.target.getAttribute("href")  这种方法也可以用但是刷新页面后会跳到首页
       window.history.pushState(null,"page1",e.target.getAttribute("href"))
       path = window.location.pathname
+      console.log(path)
       Component = RouteTable[path.toString()]
       if (!Component) {
         this.user = 'Component404'
       } else {
         this.user = RouteTable[path.toString()]
       }
+      this.$off("click",this.change)
     },
   }
 }
